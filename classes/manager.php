@@ -106,6 +106,13 @@ class manager
 
         foreach ($records as $record) {
             // Grab the task.
+
+            // FIX+: Eliminate bad tasks.
+            if (empty($record->classname)) {
+                continue;
+            }
+            // FIX-.
+
             $task = \core\task\manager::adhoc_task_from_record($record);
             if ($verbose) {
                 cli_writeln("Running AdHoc : [".$task->get_id().'] '.$task->get_name());
